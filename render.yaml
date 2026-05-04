@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: zhouyi-web
+    runtime: python
+    plan: free
+    repo: https://github.com/hotea/zhouyi.git
+    branch: main
+    buildCommand: pip install -e ".[web]"
+    startCommand: python -m zhouyi serve-web --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: ZHOUYI_SESSION_DIR
+        value: /tmp/zhouyi-sessions
+    healthCheckPath: /
+
+  - type: web
+    name: zhouyi-api
+    runtime: python
+    plan: free
+    repo: https://github.com/hotea/zhouyi.git
+    branch: main
+    buildCommand: pip install -e ".[api]"
+    startCommand: python -m zhouyi serve-api --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: ZHOUYI_SESSION_DIR
+        value: /tmp/zhouyi-sessions
+    healthCheckPath: /health

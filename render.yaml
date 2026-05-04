@@ -6,7 +6,7 @@ services:
     repo: https://github.com/hotea/zhouyi.git
     branch: main
     buildCommand: pip install -r requirements.txt && pip install -e .
-    startCommand: python -m zhouyi serve-web
+    startCommand: python start_web.py
     envVars:
       - key: ZHOUYI_SESSION_DIR
         value: /tmp/zhouyi-sessions
@@ -19,7 +19,7 @@ services:
     repo: https://github.com/hotea/zhouyi.git
     branch: main
     buildCommand: pip install -r requirements.txt && pip install -e .
-    startCommand: python -m zhouyi serve-api
+    startCommand: python start_api.py
     envVars:
       - key: ZHOUYI_SESSION_DIR
         value: /tmp/zhouyi-sessions

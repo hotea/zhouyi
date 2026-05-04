@@ -1,0 +1,61 @@
+Metadata-Version: 2.4
+Name: zhouyi-cli
+Version: 0.1.0
+Summary: CLI-based Zhouyi casting and interpretation toolkit
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: lunardate>=0.2.2
+Requires-Dist: rich>=13.7.1
+Requires-Dist: typer>=0.12.3
+Provides-Extra: dev
+Requires-Dist: pytest>=8.2.0; extra == "dev"
+
+# Zhouyi CLI
+
+一个可扩展、可测试、可追溯的周易 CLI 起卦解卦系统。
+
+## 已实现内容
+
+- 统一六爻/八卦/六十四卦内核
+- 本卦、变卦、互卦计算
+- 起卦方法插件
+  - `dayan_zhu_xi_v1`
+  - `meihua_time_v1`
+  - `meihua_number_v1`
+  - `meihua_sound_v1`
+  - `meihua_word_v1`
+- 三层解释输出
+  - 卦象与动爻
+  - 梅花体用与五行关系
+  - 白话摘要
+- 会话持久化、`explain` 回放、`export` 导出
+- `Typer + Rich` CLI 与 `pytest` 测试
+
+## 安装
+
+```bash
+python3 -m pip install -e .[dev]
+```
+
+## 示例
+
+```bash
+zhouyi methods
+zhouyi lookup hexagram 49
+zhouyi cast dayan --question "此事可行否" --seed 7 --show-steps
+zhouyi cast meihua time --datetime 2026-03-31T21:30:00 --calendar classical-lunisolar
+zhouyi cast meihua number 3 5 --json
+zhouyi cast meihua sound --count 6 --hour you
+zhouyi cast meihua word "今日动静如何"
+zhouyi interpret --hexagram 49 --line 1
+zhouyi explain <session-id>
+zhouyi export <session-id> --format markdown
+```
+
+## 设计约定
+
+- 六爻统一按自下而上存储
+- 算法与解释分离
+- 随机过程可设置 `seed`
+- 文本原文与程序解释分层
+- 会话结果默认保存到 `~/.zhouyi-cli/sessions`

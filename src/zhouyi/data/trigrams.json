@@ -1,0 +1,10 @@
+[
+  {"id": "qian", "name_zh": "乾", "number": 1, "element": "metal", "symbol": "☰", "lines": [1, 1, 1], "image": "天"},
+  {"id": "dui", "name_zh": "兑", "number": 2, "element": "metal", "symbol": "☱", "lines": [1, 1, 0], "image": "泽"},
+  {"id": "li", "name_zh": "离", "number": 3, "element": "fire", "symbol": "☲", "lines": [1, 0, 1], "image": "火"},
+  {"id": "zhen", "name_zh": "震", "number": 4, "element": "wood", "symbol": "☳", "lines": [1, 0, 0], "image": "雷"},
+  {"id": "xun", "name_zh": "巽", "number": 5, "element": "wood", "symbol": "☴", "lines": [0, 1, 1], "image": "风"},
+  {"id": "kan", "name_zh": "坎", "number": 6, "element": "water", "symbol": "☵", "lines": [0, 1, 0], "image": "水"},
+  {"id": "gen", "name_zh": "艮", "number": 7, "element": "earth", "symbol": "☶", "lines": [0, 0, 1], "image": "山"},
+  {"id": "kun", "name_zh": "坤", "number": 8, "element": "earth", "symbol": "☷", "lines": [0, 0, 0], "image": "地"}
+]

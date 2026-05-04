@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="{{ 'en' if lang == 'en' else 'zh-CN' }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ 'Zhouyi' if lang == 'en' else '周易' }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="language-switch">
+            <a href="/?lang=zh">中文</a>
+            <a href="/?lang=en">English</a>
+          </div>
+          <p class="eyebrow">{{ 'Zhouyi System' if lang == 'en' else 'Zhouyi System' }}</p>
+          <h1>{{ 'A modern minimal Yijing casting and interpretation workspace' if lang == 'en' else '现代简约的周易起卦与解卦工作台' }}</h1>
+          <p class="lede">{{ 'A unified hexagram engine for Dayan, Meihua, coin casting, structured interpretation, and multi-surface delivery.' if lang == 'en' else '以统一卦象内核承载大衍、梅花、铜钱等方法，支持会话回放、结构化解释与多端接入。' }}</p>
+        </div>
+          <div class="hero-card card">
+            <div class="metric">{{ labels.metrics_methods }}</div>
+            <div class="metric">{{ labels.metrics_profiles }}</div>
+            <div class="metric">{{ labels.metrics_surfaces }}</div>
+          </div>
+      </section>
+
+      <section class="grid two">
+        <article class="card cast-card">
+          <h2>{{ 'Online Casting' if lang == 'en' else '在线起卦' }}</h2>
+          <form class="cast-form" method="post" action="/cast">
+            <input type="hidden" name="lang" value="{{ lang }}" />
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+            <label>
+              <span>{{ labels.method }}</span>
+              <select name="method" id="method-select" onchange="window.toggleMethodFields(this.value)">
+                {% for item in methods %}
+                <option value="{{ item.id }}" {% if form and form.method == item.id %}selected{% endif %}>{{ item.id }}</option>
+                {% endfor %}
+              </select>
+            </label>
+            <label>
+              <span>{{ labels.profiles }}</span>
+              <select name="profile">
+                {% for item in profiles %}
+                <option value="{{ item.profile_id }}" {% if form and form.profile == item.profile_id %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+            </label>
+            <label>
+              <span>{{ labels.question }}</span>
+              <input name="question" value="{{ form.question if form else '' }}" placeholder="{{ 'Is this feasible?' if lang == 'en' else '此事可行否' }}" />
+            </label>
+            <label data-field="numbers">
+              <span>{{ labels.numbers }}</span>
+              <small>{{ field_schema['meihua-number'][0].help }}</small>
+              <input name="numbers" type="text" value="{{ form.numbers if form else '' }}" placeholder="3 5" pattern="[0-9\s]+" />
+            </label>
+            <label data-field="text">
+              <span>{{ labels.text }}</span>
+              <small>{{ field_schema['meihua-word'][0].help }}</small>
+              <input name="text" type="text" value="{{ form.text if form else '' }}" placeholder="今日动静如何" />
+            </label>
+            <div class="grid three compact-grid">
+              <label data-field="seed">
+                <span>{{ labels.seed }}</span>
+                <small>{{ field_schema['coin'][0].help }}</small>
+                <input name="seed" type="number" value="{{ form.seed if form else '' }}" min="0" />
+              </label>
+              <label data-field="hour">
+                <span>{{ labels.hour }}</span>
+                <small>{{ field_schema['meihua-time'][0].help }}</small>
+                <input name="hour" type="text" value="{{ form.hour if form else '' }}" placeholder="you" pattern="[a-zA-Z]+" />
+              </label>
+              <label data-field="count">
+                <span>{{ labels.count }}</span>
+                <small>{{ field_schema['meihua-sound'][1].help }}</small>
+                <input name="count" type="number" value="{{ form.count if form else '' }}" min="0" />
+              </label>
+            </div>
+            <div class="grid three compact-grid">
+              <label data-field="object_type">
+                <span>{{ labels.object }}</span>
+                <small>{{ field_schema['meihua-object'][0].help }}</small>
+                <input name="object_type" type="text" value="{{ form.object_type if form else 'flower' }}" />
+              </label>
+              <label data-field="person_type">
+                <span>{{ labels.person }}</span>
+                <small>{{ field_schema['meihua-person'][0].help }}</small>
+                <input name="person_type" type="text" value="{{ form.person_type if form else 'merchant' }}" />
+              </label>
+              <label data-field="item_type">
+                <span>{{ labels.static }}</span>
+                <small>{{ field_schema['meihua-static'][0].help }}</small>
+                <input name="item_type" type="text" value="{{ form.item_type if form else 'stone' }}" />
+              </label>
+            </div>
+            <button class="primary-button" type="submit">{{ 'Cast Now' if lang == 'en' else '立即起卦' }}</button>
+          </form>
+        </article>
+        <article class="card">
+          <h2>{{ labels.methods }}</h2>
+          <ul class="list">
+            {% for item in methods %}
+            <li>
+              <strong>{{ item.id }}</strong>
+              <span>{{ item.description }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </article>
+        <article class="card">
+          <h2>{{ labels.profiles }}</h2>
+          <ul class="list">
+            {% for item in profiles %}
+            <li>
+              <strong>{{ item.name }}</strong>
+              <span>{{ item.summary_style }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </article>
+      </section>
+
+      {% if result %}
+      <section class="card result-card">
+        <div class="result-head">
+          <div>
+            <p class="eyebrow">{{ labels.result }}</p>
+            <h2>{% if lang == 'en' %}#{{ result.cast_result.primary_hexagram.king_wen_index }} {{ result.interpretation.primary_texts.hexagram.display_name }}{% else %}第{{ result.cast_result.primary_hexagram.king_wen_index }}卦 {{ result.interpretation.primary_texts.hexagram.display_name }}{% endif %}</h2>
+          </div>
+          <a class="ghost-link" href="/sessions/{{ result.cast_result.session_id }}?lang={{ lang }}">{{ labels.view_session_details }}</a>
+        </div>
+        <div class="result-visuals">
+          <article class="figure-card">
+            <p class="eyebrow">{{ labels.visual_primary }}</p>
+            <div class="hexagram-stack">
+              {% for line in visuals.primary %}
+              <div class="hex-line{% if line.is_yang %} is-yang{% else %} is-yin{% endif %}{% if line.is_moving %} is-moving{% endif %}">
+                <span></span><span></span><em>{{ line.marker }}</em>
+              </div>
+              {% endfor %}
+            </div>
+          </article>
+          {% if visuals.relating %}
+          <article class="figure-card">
+            <p class="eyebrow">{{ labels.visual_relating }}</p>
+            <div class="hexagram-stack">
+              {% for line in visuals.relating %}
+              <div class="hex-line{% if line.is_yang %} is-yang{% else %} is-yin{% endif %}{% if line.is_moving %} is-moving{% endif %}">
+                <span></span><span></span><em>{{ line.marker }}</em>
+              </div>
+              {% endfor %}
+            </div>
+          </article>
+          {% endif %}
+          {% if visuals.mutual %}
+          <article class="figure-card">
+            <p class="eyebrow">{{ labels.visual_mutual }}</p>
+            <div class="hexagram-stack">
+              {% for line in visuals.mutual %}
+              <div class="hex-line{% if line.is_yang %} is-yang{% else %} is-yin{% endif %}{% if line.is_moving %} is-moving{% endif %}">
+                <span></span><span></span><em>{{ line.marker }}</em>
+              </div>
+              {% endfor %}
+            </div>
+          </article>
+          {% endif %}
+        </div>
+        {% if visuals.transition %}
+        <article class="figure-compare-card">
+          <div class="compare-head">
+            <div>
+              <p class="eyebrow">{{ labels.visual_transition }}</p>
+              <h3>{{ labels.visual_before }} -> {{ labels.visual_after }}</h3>
+            </div>
+            <div class="compare-meta">{{ result.cast_result.changing_lines | join(', ') if result.cast_result.changing_lines else '-' }}</div>
+          </div>
+          <div class="compare-grid compare-grid-head">
+            <span>{{ labels.line }}</span>
+            <span>{{ labels.visual_before }}</span>
+            <span></span>
+            <span>{{ labels.visual_after }}</span>
+          </div>
+          {% for row in visuals.transition %}
+          <div class="compare-grid{% if row.changed %} is-changed{% endif %}">
+            <span class="compare-line-label">{% if lang == 'en' %}{{ row.line }}{% else %}{{ row.line }}爻{% endif %}</span>
+            <div class="mini-line{% if row.before.is_yang %} is-yang{% else %} is-yin{% endif %}{% if row.before.is_moving %} is-moving{% endif %}">
+              <span></span><span></span>
+            </div>
+            <span class="compare-arrow">{% if row.changed %}→{% else %}·{% endif %}</span>
+            <div class="mini-line{% if row.after.is_yang %} is-yang{% else %} is-yin{% endif %}{% if row.after.is_moving %} is-moving{% endif %}">
+              <span></span><span></span>
+            </div>
+          </div>
+          {% endfor %}
+        </article>
+        {% endif %}
+        <div class="grid two result-grid">
+          <div>
+            <p>{{ result.interpretation.plain_language_summary }}</p>
+            <p>{{ result.interpretation.primary_texts.hexagram.judgment }}</p>
+            <p>{{ result.interpretation.primary_texts.hexagram.tuan }}</p>
+            <p>{{ result.interpretation.primary_texts.hexagram.image }}</p>
+            <p><strong>{{ labels.moving_rule }}</strong>: {{ result.interpretation.method_specific_analysis.moving_line_rule }}</p>
+          </div>
+          <div>
+            <ul class="list">
+              {% for item in result.interpretation.line_texts %}
+              <li>
+                <strong>{% if lang == 'en' %}Line {{ item.line }}{% else %}第{{ item.line }}爻{% endif %}</strong>
+                <span>{{ item.text }}</span>
+                <span>{{ item.image }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+
+      <section class="card">
+        <h2>{{ labels.recent_sessions }}</h2>
+        <div class="sessions">
+          {% for session in sessions %}
+          <a class="session-tile" href="/sessions/{{ session.session_id }}?lang={{ lang }}">
+            <div class="session-top">
+              <span>{{ session.method_id }}</span>
+              <span>{{ session.hexagram }}</span>
+            </div>
+            <p>{{ session.question or labels.no_question_text }}</p>
+            <small>{{ session.created_at }}</small>
+          </a>
+          {% endfor %}
+        </div>
+      </section>
+    </main>
+    <script>
+      window.toggleMethodFields = function(method) {
+        const mapping = {
+          'dayan': ['seed'],
+          'coin': ['seed'],
+          'meihua-number': ['numbers'],
+          'meihua-word': ['text'],
+          'meihua-sound': ['text', 'count', 'hour'],
+          'meihua-time': ['hour'],
+          'meihua-object': ['object_type', 'count', 'hour'],
+          'meihua-person': ['person_type', 'count', 'hour'],
+          'meihua-static': ['item_type', 'count', 'hour']
+        };
+        const active = new Set(mapping[method] || []);
+        document.querySelectorAll('[data-field]').forEach((node) => {
+          node.style.display = active.has(node.dataset.field) ? '' : 'none';
+        });
+      };
+      window.toggleMethodFields((document.getElementById('method-select') || {}).value || '{{ form.method if form else "dayan" }}');
+    </script>
+  </body>
+  </html>

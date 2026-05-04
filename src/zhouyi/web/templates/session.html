@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="{{ 'en' if lang == 'en' else 'zh-CN' }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ labels.session }} {{ session_id }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell shell-detail">
+      <div class="language-switch">
+        <a href="/sessions/{{ session_id }}?lang=zh">中文</a>
+        <a href="/sessions/{{ session_id }}?lang=en">English</a>
+      </div>
+      <a class="back-link" href="/?lang={{ lang }}">{{ 'Back to home' if lang == 'en' else '返回首页' }}</a>
+      <section class="card detail-card">
+        <p class="eyebrow">{{ labels.session }}</p>
+        <h1>{{ payload.interpretation.primary_texts.hexagram.display_name }}</h1>
+        <p class="lede">{{ payload.interpretation.plain_language_summary }}</p>
+      </section>
+
+      <section class="result-visuals detail-visuals">
+        <article class="figure-card">
+          <p class="eyebrow">{{ labels.visual_primary }}</p>
+          <div class="hexagram-stack">
+            {% for line in visuals.primary %}
+            <div class="hex-line{% if line.is_yang %} is-yang{% else %} is-yin{% endif %}{% if line.is_moving %} is-moving{% endif %}">
+              <span></span><span></span><em>{{ line.marker }}</em>
+            </div>
+            {% endfor %}
+          </div>
+        </article>
+        {% if visuals.relating %}
+        <article class="figure-card">
+          <p class="eyebrow">{{ labels.visual_relating }}</p>
+          <div class="hexagram-stack">
+            {% for line in visuals.relating %}
+            <div class="hex-line{% if line.is_yang %} is-yang{% else %} is-yin{% endif %}{% if line.is_moving %} is-moving{% endif %}">
+              <span></span><span></span><em>{{ line.marker }}</em>
+            </div>
+            {% endfor %}
+          </div>
+        </article>
+        {% endif %}
+        {% if visuals.mutual %}
+        <article class="figure-card">
+          <p class="eyebrow">{{ labels.visual_mutual }}</p>
+          <div class="hexagram-stack">
+            {% for line in visuals.mutual %}
+            <div class="hex-line{% if line.is_yang %} is-yang{% else %} is-yin{% endif %}{% if line.is_moving %} is-moving{% endif %}">
+              <span></span><span></span><em>{{ line.marker }}</em>
+            </div>
+            {% endfor %}
+          </div>
+        </article>
+        {% endif %}
+      </section>
+
+      {% if visuals.transition %}
+      <section class="figure-compare-card detail-compare-card">
+        <div class="compare-head">
+          <div>
+            <p class="eyebrow">{{ labels.visual_transition }}</p>
+            <h3>{{ labels.visual_before }} -> {{ labels.visual_after }}</h3>
+          </div>
+          <div class="compare-meta">{{ payload.cast_result.changing_lines | join(', ') if payload.cast_result.changing_lines else '-' }}</div>
+        </div>
+        <div class="compare-grid compare-grid-head">
+          <span>{{ labels.line }}</span>
+          <span>{{ labels.visual_before }}</span>
+          <span></span>
+          <span>{{ labels.visual_after }}</span>
+        </div>
+        {% for row in visuals.transition %}
+        <div class="compare-grid{% if row.changed %} is-changed{% endif %}">
+          <span class="compare-line-label">{% if lang == 'en' %}{{ row.line }}{% else %}{{ row.line }}爻{% endif %}</span>
+          <div class="mini-line{% if row.before.is_yang %} is-yang{% else %} is-yin{% endif %}{% if row.before.is_moving %} is-moving{% endif %}">
+            <span></span><span></span>
+          </div>
+          <span class="compare-arrow">{% if row.changed %}→{% else %}·{% endif %}</span>
+          <div class="mini-line{% if row.after.is_yang %} is-yang{% else %} is-yin{% endif %}{% if row.after.is_moving %} is-moving{% endif %}">
+            <span></span><span></span>
+          </div>
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      <section class="grid two">
+        <article class="card">
+          <h2>{{ labels.primary_hexagram }}</h2>
+          <p>{% if lang == 'en' %}#{{ payload.cast_result.primary_hexagram.king_wen_index }} {{ payload.interpretation.primary_texts.hexagram.display_name }}{% else %}第{{ payload.cast_result.primary_hexagram.king_wen_index }}卦 {{ payload.interpretation.primary_texts.hexagram.display_name }}{% endif %}</p>
+          <p>{{ payload.interpretation.primary_texts.hexagram.judgment }}</p>
+          <p>{{ payload.interpretation.primary_texts.hexagram.tuan }}</p>
+          <p>{{ payload.interpretation.primary_texts.hexagram.image }}</p>
+          <p><strong>{{ labels.moving_rule }}</strong>: {{ payload.interpretation.method_specific_analysis.moving_line_rule }}</p>
+        </article>
+        <article class="card">
+          <h2>{{ labels.summary }}</h2>
+          <p>{{ payload.interpretation.body_use_analysis.relation_text }}</p>
+          <ul class="list">
+            {% for item in payload.interpretation.line_texts %}
+            <li>
+              <strong>{% if lang == 'en' %}Line {{ item.line }}{% else %}第{{ item.line }}爻{% endif %}</strong>
+              <span>{{ item.text }}</span>
+              <span>{{ item.image }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+  </html>

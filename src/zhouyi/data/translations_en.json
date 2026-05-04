@@ -1,0 +1,321 @@
+{
+  "method_descriptions": {
+    "dayan": "Dayan divination with three changes per line and full step replay.",
+    "meihua-time": "Time-based Meihua casting using year, month, day, and hour.",
+    "meihua-number": "Number-based Meihua casting with two-number and three-number modes.",
+    "meihua-sound": "Sound/count-based Meihua casting with hour-derived lower trigram.",
+    "meihua-word": "Word-based casting that splits text into upper and lower trigrams.",
+    "coin": "Three-coin casting producing six lines through six throws.",
+    "meihua-object": "Object-based Meihua casting using object type and count.",
+    "meihua-person": "Person-based Meihua casting using person type and count.",
+    "meihua-static": "Static-object casting using inanimate object type and count."
+  },
+  "field_help": {
+    "numbers": "Space-separated numbers, such as 3 5 or 3 5 2.",
+    "text": "Sentence or text used for word or sound casting.",
+    "seed": "Optional seed for reproducible random casting.",
+    "hour": "Earthly branch hour, such as zi, mao, you, or hai.",
+    "count": "Observed count used by sound, object, person, and static methods.",
+    "object_type": "Observed object type, such as flower, tree, or stone.",
+    "person_type": "Observed person type, such as merchant, scholar, or woman.",
+    "item_type": "Observed static item type, such as stone, lamp, or table."
+  },
+  "profiles": {
+    "classic": {
+      "name": "Classic Reading",
+      "summary_style": "Prioritizes judgment text, line text, commentaries, and moving-line rules with minimal modern elaboration."
+    },
+    "balanced": {
+      "name": "Balanced Reading",
+      "summary_style": "Balances classic text, body/function analysis, and plain-language summary."
+    },
+    "modern": {
+      "name": "Modern Summary",
+      "summary_style": "Emphasizes plain-language synthesis, actionable guidance, and risk signals."
+    }
+  },
+  "case_titles": {
+    "guanmei-zhan": "Watching Plum Blossoms Divination",
+    "mudan-zhan": "Peony Divination",
+    "linye-koumen": "Night Knock at the Door Divination",
+    "jinri-dongjing": "How Will Things Move Today"
+  },
+  "trigrams": {
+    "qian": {"name": "Qian", "image": "Heaven"},
+    "dui": {"name": "Dui", "image": "Lake"},
+    "li": {"name": "Li", "image": "Fire"},
+    "zhen": {"name": "Zhen", "image": "Thunder"},
+    "xun": {"name": "Xun", "image": "Wind"},
+    "kan": {"name": "Kan", "image": "Water"},
+    "gen": {"name": "Gen", "image": "Mountain"},
+    "kun": {"name": "Kun", "image": "Earth"}
+  },
+  "hexagram_names": {
+    "1": "Force",
+    "2": "Field",
+    "3": "Sprouting",
+    "4": "Enveloping",
+    "5": "Attending",
+    "6": "Arguing",
+    "7": "Leading",
+    "8": "Grouping",
+    "9": "Small Accumulating",
+    "10": "Treading",
+    "11": "Pervading",
+    "12": "Obstruction",
+    "13": "Concording People",
+    "14": "Great Possession",
+    "15": "Humbling",
+    "16": "Providing-For",
+    "17": "Following",
+    "18": "Correcting",
+    "19": "Approaching",
+    "20": "Viewing",
+    "21": "Gnawing Bite",
+    "22": "Adorning",
+    "23": "Stripping",
+    "24": "Returning",
+    "25": "Without Embroiling",
+    "26": "Great Accumulating",
+    "27": "Swallowing",
+    "28": "Great Exceeding",
+    "29": "Gorge",
+    "30": "Radiance",
+    "31": "Conjoining",
+    "32": "Persevering",
+    "33": "Retiring",
+    "34": "Great Invigorating",
+    "35": "Prospering",
+    "36": "Brightness Hiding",
+    "37": "Dwelling People",
+    "38": "Polarising",
+    "39": "Limping",
+    "40": "Taking-Apart",
+    "41": "Diminishing",
+    "42": "Augmenting",
+    "43": "Parting",
+    "44": "Coupling",
+    "45": "Clustering",
+    "46": "Ascending",
+    "47": "Confining",
+    "48": "Welling",
+    "49": "Skinning",
+    "50": "Holding",
+    "51": "Shake",
+    "52": "Bound",
+    "53": "Infiltrating",
+    "54": "Converting the Maiden",
+    "55": "Abounding",
+    "56": "Sojourning",
+    "57": "Ground",
+    "58": "Open",
+    "59": "Dispersing",
+    "60": "Articulating",
+    "61": "Center Returning",
+    "62": "Small Exceeding",
+    "63": "Already Fording",
+    "64": "Not Yet Fording"
+  },
+  "hexagram_summaries": {
+    "1": "Creative force leads the situation; initiative, strength, and responsibility matter most.",
+    "2": "Receptive support carries the matter; steadiness and responsiveness are favored.",
+    "11": "Upper and lower exchange freely, suggesting flow, coordination, and mutual support.",
+    "12": "Communication is blocked, so delay, separation, or misalignment needs attention.",
+    "13": "Shared purpose can unite different people, but only when direction and boundaries are made explicit.",
+    "14": "Resources and visibility are abundant; the challenge is governing plenty without excess.",
+    "15": "Lasting progress comes through balance and deliberate restraint rather than display.",
+    "49": "Transformation replaces the old order; reform, timing, and legitimacy are central.",
+    "63": "The structure is already formed; preserve gains and guard against late disorder.",
+    "64": "The matter is not yet complete; prepare carefully, revise, and avoid premature closure."
+  },
+  "classic_texts": {
+    "1": {
+      "judgment": "Qian: Sublime success. Constancy bears fruit.",
+      "tuan": "Qian is strong and unceasing; the movement of heaven is vigorous.",
+      "image": "Heaven in double form: Qian. The noble one strengthens the self without rest."
+    },
+    "2": {
+      "judgment": "Kun: Sublime success. Fruitful is the mare's constancy. The noble one has somewhere to go: at first confused, later finding the guide. Peaceful constancy brings good fortune.",
+      "tuan": "Kun is yielding and receptive; it carries and completes what Qian initiates.",
+      "image": "Earth in double form: Kun. The noble one supports beings with generous virtue."
+    },
+    "11": {
+      "judgment": "Tai: The small departs, the great arrives. Good fortune. Success.",
+      "tuan": "Heaven and earth join; above and below communicate, and the myriad things flourish.",
+      "image": "Heaven and earth interact: Tai. The ruler completes the course of heaven and earth and assists the people."
+    },
+    "12": {
+      "judgment": "Pi: Obstruction. The people are not in accord. The noble one's constancy does not bear fruit; the great departs and the small arrives.",
+      "tuan": "Heaven and earth do not join, so blockage prevails and worthy people withdraw.",
+      "image": "Heaven and earth stand apart: Pi. The noble one uses frugality to avoid difficulty and does not seek honor through salary."
+    },
+    "13": {
+      "judgment": "Concording People in the open fields. Success. Fruitful to cross the great river. Fruitful for the noble one to remain correct.",
+      "tuan": "To concord with people is to align through clarity, firmness, and a shared center of purpose.",
+      "image": "Heaven together with fire: Concording People. The noble one distinguishes kinds and clarifies differences among things.",
+      "editorial": "Concording People points to open cooperation under a shared aim. Real unity depends less on slogans than on making direction, values, and limits explicit."
+    },
+    "14": {
+      "judgment": "Great Possession: Sublime success.",
+      "tuan": "Great possession means abundance held in the right place and governed through clarity and correctness.",
+      "image": "Fire above heaven: Great Possession. The noble one curbs evil and promotes good, in accord with heaven's beneficent mandate.",
+      "editorial": "Great Possession concerns abundance, influence, and command of resources. The real test is not gaining more, but distributing and holding plenty without arrogance or waste."
+    },
+    "15": {
+      "judgment": "Humbling: Success. The noble one has an end.",
+      "tuan": "Humility diminishes what is overfull and adds to what is lacking, so balance becomes possible.",
+      "image": "A mountain within the earth: Humbling. The noble one reduces excess and increases what is deficient, weighing things and making distribution even.",
+      "editorial": "Humbling is not self-erasure but disciplined balance. What advances here is the capacity to lower what is too high, restrain what is too full, and let the structure breathe again."
+    },
+    "29": {
+      "judgment": "Kan repeated: There is trust. The heart is successful, and action earns esteem.",
+      "tuan": "Repeated danger trains the heart; crossing peril requires sincerity and steady conduct.",
+      "image": "Water flows on in repetition: Kan. The noble one walks in lasting virtue and practices the teaching of affairs.",
+      "line_texts": [
+        "Repeated danger: enter the pit within the pit. Misfortune.",
+        "The abyss has danger. Seek only small gains.",
+        "Coming and going through the abyss, danger upon danger. Better to stop and not act.",
+        "A jug of wine, a bowl of food, offered through the window. In the end, no blame.",
+        "The abyss is not yet filled; only after it is leveled is there no blame.",
+        "Bound with cords and ropes, shut among thorn hedges for three years. Misfortune."
+      ],
+      "line_images": [
+        "Falling ever deeper shows losing the proper way.",
+        "Seeking small gains means not yet leaving the center of danger.",
+        "Danger upon danger leaves no merit in movement.",
+        "Simple offerings through the window value sincerity over display.",
+        "Waiting until the abyss is level means the danger can finally be handled.",
+        "Three years shut away shows the culmination of danger and entanglement."
+      ]
+    },
+    "30": {
+      "judgment": "Li: Fruitful in constancy. Success. Raising a cow brings good fortune.",
+      "tuan": "Li means to cling. Sun and moon cling to heaven, grasses and trees cling to earth.",
+      "image": "Brightness doubled forms Li; the great person continues this brightness to illuminate the four directions."
+    },
+    "39": {
+      "judgment": "Limping: Fruitful in the southwest, not fruitful in the northeast. Fruitful to see the great person. Constancy brings good fortune.",
+      "tuan": "Difficulty lies ahead; turning toward support and proper direction is the way through obstruction.",
+      "image": "Water on the mountain: Limping. The noble one turns inward and cultivates virtue."
+    },
+    "40": {
+      "judgment": "Taking-Apart: Fruitful in the southwest. If there is nowhere to go, returning brings good fortune. If there is somewhere to go, setting out early brings good fortune.",
+      "tuan": "Release comes when tension loosens and obstruction is untied at the right moment.",
+      "image": "Thunder and rain arise: Taking-Apart. The noble one pardons faults and forgives transgressions."
+    },
+    "47": {
+      "judgment": "Confining: Success. Constancy for the great person brings good fortune. No blame. If there are words, they are not trusted.",
+      "tuan": "Exhaustion presses from outside, so inner resolve becomes the source of passage.",
+      "image": "A lake without water: Confining. The noble one stakes life on fulfilling the will."
+    },
+    "48": {
+      "judgment": "Welling: One may change the town, but not the well. It neither decreases nor increases. People come and go and draw from the well. If the rope does not quite reach the water, or the jug breaks, there is misfortune.",
+      "tuan": "The well is the shared source: stable in principle, but dependent on proper maintenance and use.",
+      "image": "Water over wood: Welling. The noble one encourages the people and urges mutual aid."
+    },
+    "49": {
+      "judgment": "Ge: On the day of change there is trust. Supreme success. Fruitful constancy. Regret vanishes.",
+      "tuan": "Ge means transformation: water and fire repel one another, and so change becomes necessary.",
+      "image": "Fire in the lake: Ge. The noble one sets the calendar in order and clarifies the seasons.",
+      "line_texts": [
+        "Wrapped in yellow oxhide.",
+        "When the day of change arrives, one may act. Setting forth brings good fortune; no blame.",
+        "Setting forth brings misfortune. Constancy is dangerous. When talk of change has spread three times, there is trust.",
+        "Regret vanishes. There is trust in changing the mandate. Good fortune.",
+        "The great person transforms like a tiger. Even before divination, there is trust.",
+        "The noble person transforms like a leopard; the petty person changes only the face. Setting forth brings misfortune; dwelling in constancy brings good fortune."
+      ],
+      "line_images": [
+        "Yellow oxhide means fastening the will firmly.",
+        "Acting only on the proper day means compliance with the time of change.",
+        "Repeated consultation before trust means change cannot be rushed.",
+        "Changing the mandate means the will has become credible.",
+        "Tiger-like transformation shows its pattern is fully manifest.",
+        "Leopard-like transformation means the pattern is visible, but not equal to the great person."
+      ]
+    },
+    "50": {
+      "judgment": "Ding: Great good fortune. Success.",
+      "tuan": "The cauldron transforms what is raw into what is nourishing and complete.",
+      "image": "Fire over wood: Ding. The noble one rectifies position and consolidates destiny.",
+      "line_texts": [
+        "The cauldron overturned by the feet. Fruitful for removing what is stagnant. Taking a concubine for the sake of a son. No blame.",
+        "There is substance in the cauldron. My counterpart is ill and cannot approach me. Good fortune.",
+        "The cauldron's ears are altered; its movement is blocked. The pheasant fat is not eaten. Once rain comes, regret vanishes. In the end, good fortune.",
+        "The cauldron's legs are broken. The prince's meal is spilled, and his person is stained. Misfortune.",
+        "The cauldron has yellow ears and a golden carrying ring. Constancy brings good fortune.",
+        "The cauldron has a jade carrying ring. Great good fortune. Nothing is not favorable."
+      ],
+      "line_images": [
+        "Overturning the cauldron to remove what is stagnant means getting rid of what should not remain.",
+        "Having substance in the cauldron means fullness at the center.",
+        "Blocked movement means the time has not yet opened.",
+        "Broken legs mean the vessel can no longer bear its charge.",
+        "Yellow ears and a golden ring show centered balance with proper support.",
+        "A jade ring at the summit shows the vessel has become fully worthy."
+      ]
+    },
+    "52": {
+      "judgment": "Bound: Keeping the back still so that the self is not grasped; walking in the courtyard and not seeing the person. No blame.",
+      "tuan": "Stillness stops at the right place; each thing rests where it should and excess movement ceases.",
+      "image": "Mountain joined to mountain: Bound. The noble one does not let thought go beyond the place at hand."
+    },
+    "56": {
+      "judgment": "Sojourning: Small success. Constancy for the traveler brings good fortune.",
+      "tuan": "Traveling means dwelling outside one's base, so humility, clarity, and restraint are essential.",
+      "image": "Fire on the mountain: Sojourning. The noble one is clear and cautious in judgments, and does not prolong disputes."
+    },
+    "57": {
+      "judgment": "Ground: Small success. Fruitful to have somewhere to go. Fruitful to see the great person.",
+      "tuan": "Gentle penetration enters gradually, working through repetition rather than force.",
+      "image": "Wind following wind: Ground. The noble one repeatedly enacts the mandate and carries out the work."
+    },
+    "58": {
+      "judgment": "Open: Success. Fruitful constancy.",
+      "tuan": "Joy opens what is closed, but rightness is needed so delight does not become excess.",
+      "image": "Lake joined to lake: Open. The noble one joins with friends to discuss and practice together."
+    },
+    "63": {
+      "judgment": "Already Fording: Small success. Constancy bears fruit. Good fortune at first, disorder at the end.",
+      "tuan": "Things have crossed into completion, but completion itself requires vigilance.",
+      "image": "Water above fire: Already Fording. The noble one thinks ahead and guards against future trouble.",
+      "line_texts": [
+        "Dragging the wheels; wetting the tail. No blame.",
+        "The woman loses the curtain of her carriage. Do not pursue it; on the seventh day it is recovered.",
+        "The high ancestor attacked the Demon Region and after three years defeated it. Lesser people must not be employed.",
+        "The finest clothes turn to rags. Be on guard all day.",
+        "The eastern neighbor slaughters an ox, but does not equal the western neighbor's small offering, which truly receives blessing.",
+        "Wetting the head. Danger."
+      ],
+      "line_images": [
+        "Dragging the wheels means caution at the beginning of completion.",
+        "Recovery without pursuit means what is centered returns of itself.",
+        "Three years of struggle show completion still requires endurance.",
+        "Fine clothes turning to rags means outward success cannot replace vigilance.",
+        "A sincere small offering surpasses lavish display.",
+        "Wetting the head means completion overturns into excess."
+      ]
+    },
+    "64": {
+      "judgment": "Not Yet Fording: Success. The little fox nearly crosses, but wets its tail. Nothing is fruitful.",
+      "tuan": "Not yet complete means the matter is still in transition and not ready to be sealed.",
+      "image": "Fire above water: Not Yet Fording. The noble one carefully distinguishes things and places them rightly.",
+      "line_texts": [
+        "Wetting the tail. Humiliation.",
+        "Dragging the wheels. Constancy brings good fortune.",
+        "Not yet crossed. Setting forth brings misfortune. Fruitful to cross the great river.",
+        "Constancy brings good fortune; regret vanishes. Shocking the Demon Region: after three years there are rewards in the great state.",
+        "Constancy brings good fortune. No regret. The noble one's brilliance has trust. Good fortune.",
+        "There is trust in drinking wine. No blame. But if one wets the head, then even with trust it is lost."
+      ],
+      "line_images": [
+        "Wetting the tail means the beginning is disordered.",
+        "Dragging the wheels means holding back until the time is right.",
+        "A great crossing is still possible, but only with proper scale and preparation.",
+        "Long effort before reward shows unfinished matters need disciplined follow-through.",
+        "Brilliance with trust means the center is clear and reliable.",
+        "Losing trust through excess at the end undoes what was nearly completed."
+      ]
+    }
+  }
+}

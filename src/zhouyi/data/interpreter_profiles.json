@@ -1,0 +1,17 @@
+{
+  "classic": {
+    "profile_id": "classic",
+    "name": "经典取用",
+    "summary_style": "优先呈现卦辞、爻辞、彖象与动爻规则，少做现代发挥。"
+  },
+  "balanced": {
+    "profile_id": "balanced",
+    "name": "平衡解释",
+    "summary_style": "兼顾经典文本、体用关系与现代白话摘要。"
+  },
+  "modern": {
+    "profile_id": "modern",
+    "name": "现代摘要",
+    "summary_style": "强调白话总结、可执行建议和风险提示。"
+  }
+}

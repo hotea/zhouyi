@@ -1,0 +1,57 @@
+[
+  {
+    "case_id": "guanmei-zhan",
+    "title": "观梅占",
+    "method": "meihua-object",
+    "input": {
+      "object_type": "flowering_plant",
+      "count": 5,
+      "hour": "si"
+    },
+    "expected": {
+      "upper_trigram": "xun",
+      "lower_trigram": "li",
+      "changing_lines": [5]
+    }
+  },
+  {
+    "case_id": "mudan-zhan",
+    "title": "牡丹占",
+    "method": "meihua-object",
+    "input": {
+      "object_type": "flower",
+      "count": 8,
+      "hour": "you"
+    },
+    "expected": {
+      "upper_trigram": "kun",
+      "lower_trigram": "dui",
+      "changing_lines": [6]
+    }
+  },
+  {
+    "case_id": "linye-koumen",
+    "title": "邻夜扣门借物占",
+    "method": "meihua-sound",
+    "input": {
+      "count": 6,
+      "hour": "hai"
+    },
+    "expected": {
+      "upper_trigram": "kan",
+      "lower_trigram": "dui",
+      "changing_lines": [6]
+    }
+  },
+  {
+    "case_id": "jinri-dongjing",
+    "title": "今日动静如何",
+    "method": "meihua-word",
+    "input": {
+      "text": "今日动静如何"
+    },
+    "expected": {
+      "changing_lines": [6]
+    }
+  }
+]

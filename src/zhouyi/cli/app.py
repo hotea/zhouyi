@@ -141,22 +141,28 @@ def case(
 
 @app.command()
 def serve_api(
-    host: str = typer.Option("127.0.0.1", "--host"),
+    host: str = typer.Option("0.0.0.0", "--host"),
     port: int = typer.Option(8864, "--port"),
 ) -> None:
     def action() -> None:
-        uvicorn.run("zhouyi.api:api", host=host, port=port, reload=False)
+        import os
+
+        actual_port = int(os.environ.get("PORT", port))
+        uvicorn.run("zhouyi.api:api", host=host, port=actual_port, reload=False)
 
     _run_action(action)
 
 
 @app.command()
 def serve_web(
-    host: str = typer.Option("127.0.0.1", "--host"),
+    host: str = typer.Option("0.0.0.0", "--host"),
     port: int = typer.Option(8864, "--port"),
 ) -> None:
     def action() -> None:
-        uvicorn.run("zhouyi.web.server:web", host=host, port=port, reload=False)
+        import os
+
+        actual_port = int(os.environ.get("PORT", port))
+        uvicorn.run("zhouyi.web.server:web", host=host, port=actual_port, reload=False)
 
     _run_action(action)
 

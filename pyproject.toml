@@ -7,7 +7,7 @@ name = "zhouyi-cli"
 version = "0.1.0"
 description = "CLI-based Zhouyi casting and interpretation toolkit"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = [
   "lunardate>=0.2.2",
   "rich>=13.7.1",

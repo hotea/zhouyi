@@ -2,34 +2,81 @@ Metadata-Version: 2.4
 Name: zhouyi-cli
 Version: 0.1.0
 Summary: CLI-based Zhouyi casting and interpretation toolkit
-Requires-Python: >=3.12
+Requires-Python: >=3.11
 Description-Content-Type: text/markdown
 Requires-Dist: lunardate>=0.2.2
 Requires-Dist: rich>=13.7.1
+Requires-Dist: fastapi>=0.135.1
+Requires-Dist: jinja2>=3.1.3
 Requires-Dist: typer>=0.12.3
+Requires-Dist: textual>=8.2.1
+Requires-Dist: uvicorn>=0.41.0
+Requires-Dist: python-multipart>=0.0.20
 Provides-Extra: dev
 Requires-Dist: pytest>=8.2.0; extra == "dev"
+Requires-Dist: mypy>=1.10.0; extra == "dev"
+Requires-Dist: httpx>=0.27.0; extra == "dev"
+Provides-Extra: api
+Provides-Extra: web
 
-# Zhouyi CLI
+# Zhouyi
 
-一个可扩展、可测试、可追溯的周易 CLI 起卦解卦系统。
+一个可扩展、可测试、可追溯的周易起卦与解卦系统，覆盖 CLI、API、TUI 与 Web。
 
 ## 已实现内容
 
 - 统一六爻/八卦/六十四卦内核
 - 本卦、变卦、互卦计算
-- 起卦方法插件
-  - `dayan_zhu_xi_v1`
-  - `meihua_time_v1`
-  - `meihua_number_v1`
-  - `meihua_sound_v1`
-  - `meihua_word_v1`
+- 起卦方法插件（9种）
+  - `dayan_zhu_xi_v1` — 大衍筮法（朱熹版，含挂一、揲四、归扐完整流程）
+  - `coin_three_v1` — 三硬币法
+  - `meihua_time_v1` — 梅花易数时间起卦法
+  - `meihua_number_v1` — 梅花易数数字起卦法
+  - `meihua_word_v1` — 梅花易数字数起卦法
+  - `meihua_sound_v1` — 梅花易数声音起卦法
+  - `meihua_object_v1` — 梅花易数物数起卦法
+  - `meihua_person_v1` — 梅花易数人物起卦法
+  - `meihua_static_v1` — 梅花易数静物起卦法
 - 三层解释输出
   - 卦象与动爻
   - 梅花体用与五行关系
   - 白话摘要
 - 会话持久化、`explain` 回放、`export` 导出
+- 配置文件与默认参数管理
+- `latest` 会话引用与最近记录查看
+- 解释规则版本化与多 Profile 切换（经典/平衡/现代）
+- API / TUI / Web 多端入口
+- CLI / TUI / Web 中英双语切换（`zh` / `en`）
+- API 返回双语元数据、方法字段 schema 与按语言重建的会话详情
+- API 使用明确的 Pydantic 请求/响应 schema 生成 OpenAPI 描述
+- API 输入参数验证（方法名白名单、语言约束、卦序范围、业务异常422）
+- Web 在线起卦表单按方法动态显示所需字段
+- Web 结果区支持本卦 / 变卦 / 互卦可视化卦象展示
+- Web 结果区支持"本卦 -> 变卦"逐爻对照视图
+- Web CSRF 防护（双重令牌验证）
+- 梅花经典案例黄金测试
 - `Typer + Rich` CLI 与 `pytest` 测试
+
+## 算法正确性
+
+所有核心起卦算法均与公认标准逐一验证：
+
+| 方法 | 标准 | 验证结果 |
+|------|------|---------|
+| 大衍筮法 | 朱熹《易学启蒙》 | ✅ 挂一+揲四+归扐，三变后剩余{24,28,32,36}，对应老阴6/少阳7/少阴8/老阳9 |
+| 三硬币法 | 字3背2，6→老阴/7→少阳/8→少阴/9→老阳 | ✅ |
+| 梅花时间法 | 上卦=(年+月+日)%8，下卦=(年+月+日+时)%8，动爻=(年+月+日+时)%6 | ✅ |
+| 梅花数字法 | 两数法/三数法 | ✅ |
+| 梅花字数法 | 偶数字平分，奇数字上少下多（邵雍原文） | ✅ |
+| 梅花声音法 | 上卦=声数%8，下卦=(声数+时数)%8，动爻=(声数+时数)%6 | ✅ |
+| 梅花物数法 | 上卦=物数%8，下卦=(物数+时数)%8，动爻=(物数+时数)%6 | ✅ |
+| 梅花人物法 | 同物数法 | ✅ |
+| 梅花静物法 | 同物数法 | ✅ |
+| 互卦 | 二三四爻为内卦，三四五爻为外卦 | ✅ |
+| 体用关系 | 动爻所在卦为用，不动为体 | ✅ |
+| 五行生克 | 木→火→土→金→水→木；木克土/土克水/水克火/火克金/金克木 | ✅ |
+| 先天八卦数 | 乾1兑2离3震4巽5坎6艮7坤8 | ✅ |
+| 八卦五行 | 乾(金)兑(金)离(火)震(木)巽(木)坎(水)艮(土)坤(土) | ✅ |
 
 ## 安装
 
@@ -37,25 +84,86 @@ Requires-Dist: pytest>=8.2.0; extra == "dev"
 python3 -m pip install -e .[dev]
 ```
 
-## 示例
+## CLI 示例
 
 ```bash
-zhouyi methods
+zhouyi methods --lang en
 zhouyi lookup hexagram 49
 zhouyi cast dayan --question "此事可行否" --seed 7 --show-steps
-zhouyi cast meihua time --datetime 2026-03-31T21:30:00 --calendar classical-lunisolar
+zhouyi cast meihua time --datetime 2026-03-31T21:30:00 --calendar lunar
 zhouyi cast meihua number 3 5 --json
-zhouyi cast meihua sound --count 6 --hour you
+zhouyi cast meihua sound --sentence "风声忽起" --count 6 --hour you
 zhouyi cast meihua word "今日动静如何"
 zhouyi interpret --hexagram 49 --line 1
-zhouyi explain <session-id>
-zhouyi export <session-id> --format markdown
+zhouyi explain <session-id> --lang en
+zhouyi explain latest --lang en
+zhouyi export <session-id> --format markdown --lang en
+zhouyi sessions
+zhouyi config init
+zhouyi config show
+zhouyi config set calendar-mode classical-lunisolar
+zhouyi cast guided
+zhouyi cast coin --seed 7
+zhouyi cast meihua object --object-type flower --count 3 --hour you
+zhouyi cast meihua person --person-type merchant --count 2 --hour zi
+zhouyi cast meihua static --item-type stone --count 4 --hour mao
+zhouyi profiles
+zhouyi cases
+zhouyi case guanmei-zhan
+zhouyi serve-api --host 127.0.0.1 --port 8864
+zhouyi serve-web --host 127.0.0.1 --port 8864
+zhouyi tui
 ```
+
+`--calendar` 支持别名：`lunar` → `classical-lunisolar`，`solar`/`gregorian` → `civil-simplified`。
+
+## API 示例
+
+```bash
+curl "http://127.0.0.1:8864/methods?lang=en"
+curl "http://127.0.0.1:8864/profiles?lang=zh"
+curl "http://127.0.0.1:8864/hexagrams/49?lang=en"
+curl "http://127.0.0.1:8864/sessions?lang=en"
+curl "http://127.0.0.1:8864/sessions/<session-id>?lang=en"
+curl -X POST "http://127.0.0.1:8864/cast/meihua-number" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "raw_numbers": [3, 5],
+    "question": "Is this feasible?",
+    "interpretation_profile": "balanced",
+    "language": "en",
+    "save_session": false
+  }'
+```
+
+API 端点输入验证：
+- `lang` 参数限定 `zh`/`en`，非法值返回 422
+- `method_name` 白名单校验，无效方法返回 422
+- `hexagrams/{index}` 限定 1-64，越界返回 422
+- 业务异常（无效参数等）统一返回 422 而非 500
+
+## 工程状态
+
+- 测试：`85 passed`
+- 所有 9 种起卦方法已验证
+- CLI 全命令已验证（含错误处理和边界情况）
+- API 全端点已验证（含输入验证）
+- Web 已验证（含 CSRF 防护、所有 9 种方法、中英切换）
 
 ## 设计约定
 
 - 六爻统一按自下而上存储
 - 算法与解释分离
-- 随机过程可设置 `seed`
+- 随机过程可设置 `seed`，结果可复现
 - 文本原文与程序解释分层
 - 会话结果默认保存到 `~/.zhouyi-cli/sessions`
+- 会话文件写入采用原子操作（tempfile + os.replace）
+- 所有枚举序列化统一通过 `isinstance(value, Enum)` 处理
+- 数据模型（Hexagram/TrigramInfo）带 `__post_init__` 校验
+- 卦数/爻位函数拒绝 0 和负数输入
+
+## 术语
+
+- 中英术语对照见 `docs/terminology.md`
+- Web 结果区设计与实现说明见 `docs/web-result-view.md`
+- 内容质量建设说明见 `docs/content-quality.md`
